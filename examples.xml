@@ -1,0 +1,84 @@
+
+A few examples on how to set up simpleIC in XML.
+The first is the "bare minimum" XML code needed to get simpleIC working.
+I have not included the <animations> </animations> lines used to animate the windows/doors etc. since that is universal as it uses basegame animations.
+If you don't know how to do that, look at a tutorial which explains that or ask someone (after you tried to figure out yourself of course).
+The second example is the current "normal" code with all the optional stuff.
+The third example is using triggerPoint_ON and triggerPoint_OFF which means that instead of one "X" to click as a toggle you've got two marks, one that will
+"open" the animation, the other one that will close the "animation".
+The triggerPoint stuff is global to the script so if I add features in future that aren't controlling animations, it is still "valid" to use off and on points.
+
+For an example on how it is actually implemented in a mod, take a look at my Deutz Agrostar Edit I linked in the Readme on Github. (youtube video link)
+
+
+## absolute basic IC function animation lines:
+______________________________________________
+-- animationName -> name of the animation controlled by this IC function
+-- insideTrigger triggerPoint -> index of the transform group that marks the trigger point 
+<simpleIC >
+	<animation animationName="windowFront"  >
+		<insideTrigger triggerPoint="sic_frontWindow_innerNode" />
+	</animation>				
+</simpleIC>
+
+
+## advanced IC function animation lines with optional stuff:
+____________________________________________________________
+-- outsideInteractionTrigger -> index of the playerTrigger for outside (onFoot) interaction 
+-- animationName -> name of the animation controlled by this IC function 
+-- animationSpeed -> speed the animation is played at (can also be negative) 
+-- sharedAnimation -> not yet implemented 
+-- soundVolumeIncreasePercentage -> percentage by which the volume will increase from insideVolume to outsideVolume if this animation is "on" e.g. door/window is open 
+-- insideTrigger -> line for the triggerPoints that can be triggered from inside camera 
+-- outsideTrigger -> line for the triggerPoints that can be triggered from outside camera or player on foot 
+-- triggerPoint -> index of the transform group that marks the particular trigger point 
+-- triggerPointSize -> radius around the triggerPoint in cm where it still registeres as triggered 
+-- reachDistance -> the max. distance to which a player can reach an IC point (indoor camera only, default 1.8)
+<simpleIC outsideInteractionTrigger="sic_playerTrigger" reachDistance="1.8" >
+	<animation animationName="windowFront" animationSpeed="1" sharedAnimation="false" soundVolumeIncreasePercentage="0.5" >
+		<insideTrigger triggerPoint="sic_frontWindow_innerNode" triggerPointSize="0.04" />
+		<outsideTrigger triggerPoint="sic_frontWindow_outerNode" triggerPointSize="0.04" />
+	</animation>	
+</simpleIC>
+
+## advanced IC function animation lines with optional 2 trigger points (on and off point instead of toggle):
+____________________________________________________________________________________________________________
+-- all the same as the one above except:
+-- triggerPoint_ON -> index of the transform group that marks the particular triggerPoint for turning the IC function "on" (animation playing towards end)
+-- triggerPoint_OFF -> index of the transform group that marks the particular triggerPoint for turning the IC function "off" (animation playing towards start)
+<simpleIC outsideInteractionTrigger="sic_playerTrigger" >
+	<animation animationName="windowFront" animationSpeed="1" sharedAnimation="false" soundVolumeIncreasePercentage="0.5" >
+			<insideTrigger triggerPoint_ON="sic_windowFront_innerNode_ON" triggerPoint_OFF="sic_windowFront_innerNode_OFF" triggerPointSize="0.04" />
+			<outsideTrigger triggerPoint_ON="sic_windowFront_outerNode_ON" triggerPoint_OFF="sic_windowFront_outerNode_OFF" triggerPointSize="0.04" />
+	</animation>	
+</simpleIC>
+
+
+## IC function with easy cylinder animation:
+____________________________________________
+-- as for the cylinderAnimations:
+-- node1 -> index of one of the nodes for the cylinder 
+-- node2 -> index of the other node for the cylinder 
+----------------------------------------------------
+cylinder-nodes are directed at each other, meaning the other part is also acting as reference point.
+In order for this to work, the cylinder-parts pivot has to be oriented in a way that the positive Z axis points the direction the cylinder-part points at.
+The "rotation" axis is the Y axis (green axis)
+
+<simpleIC outsideInteractionTrigger="sic_playerTrigger" >
+	<animation animationName="doorRight" animationSpeed="1" sharedAnimation="false" soundVolumeIncreasePercentage="0.5" >
+		<insideTrigger triggerPoint="sic_doorRight_innerNode" triggerPointSize="0.04" />
+		<outsideTrigger triggerPoint="sic_doorRight_outerNode" triggerPointSize="0.04" />
+	</animation>	
+
+	<cylinderAnimations>
+		<cylinder node1="doorLeft_strutCyl_left" node2="doorLeft_strutMain_left" />
+	</cylinderAnimations>
+</simpleIC>
+
+## Enabling triggerPoints being disabled when triggerPoint transform-group is invisible
+-- disableInvisibleTriggers -> set to true will enable this feature. Default is off to keep backwards-compatible with older mods
+<simpleIC disableInvisibleTriggers="true" >
+	[...]
+</simpleIC>
+
+
