@@ -78,7 +78,7 @@ function simpleIC_animations:saveToXMLFile(xmlFile, key)
 		for _, icFunction in pairs(spec.icFunctions) do
 			-- save animations state 
 			if icFunction.animation ~= nil then
-				setXMLBool(xmlFile, key1..".icFunction"..i.."#animationState", icFunction.animation.currentState);
+				setXMLBool(xmlFile.handle, key1..".icFunction"..i.."#animationState", icFunction.animation.currentState);
 			end;
 			i = i+1;
 		end;

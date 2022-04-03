@@ -12,6 +12,9 @@ All the additional features like Attacher-Control are deactivated for the first 
  
 # Changelog:
 
+###### V 0.9.0.2
+- fixed issue when saving simpleIC_animations.lua (81) [issue #4]
+
 ###### V 0.9.0.1
 - Initial Github Release for FS22
 
