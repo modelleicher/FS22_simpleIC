@@ -12,18 +12,17 @@ All the additional features like Attacher-Control are deactivated for the first 
  
 # Changelog:
 
-###### V 0.9.0.3
+###### V 0.9.0.4
 - multiplayer synchronization fix [issue #6]
 - saving of animationState fix
 - losing interior sounds fix [issue #7]
 - polish translation added (thanks KITT3000)
-
+###### V 0.9.0.3
+- messed up version, please update again
 ###### V 0.9.0.2
 - fixed issue when saving simpleIC_animations.lua (81) [issue #4]
-
 ###### V 0.9.0.1
 - Initial Github Release for FS22
-
 
 # the most important thing:
 How do I test and play this?

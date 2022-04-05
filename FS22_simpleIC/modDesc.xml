@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="no" ?>
 <modDesc descVersion="64">
     <author>modelleicher (Farming Agency)</author>
-    <version>0.9.0.3 FS22</version>
+    <version>0.9.0.4 FS22</version>
     <title>
         <de>SimpleIC - Einfaches Interactive Control</de>
 		<en>SimpleIC - Easy Interactive Control</en>
@@ -44,7 +44,7 @@
 		<text name="input_INTERACT_IC_VEHICLE"><de>IC: Interagieren vehicle</de><en>IC: interact vehicle</en><pl>Interakcja w pojeździe</pl></text>	
 		<text name="input_INTERACT_IC_ONFOOT"><de>IC: Interagieren zu Fuß</de><en>IC: interact on foot</en><pl>Interakcja poza pojazdem</pl></text>	
 
-        <text name="title_simpleIC"><de>Simple IC</de><en>Simple IC</en></pl>SimpleIC</pl></text>	
+        <text name="title_simpleIC"><de>Simple IC</de><en>Simple IC</en><pl>SimpleIC</pl></text>	
 		<text name="setting_simpleIC"><de>Triggerpunkte Modus</de><en>Triggerpoint Mode</en><pl>Tryb punktu interakcji</pl></text>	
 		<text name="toolTip_simpleIC"><de>Die Einstellung legt fest wie die Triggerpunkte eingeblendet werden.</de><en>How the Triggerpoints are supposed to be displayed.</en><pl>Jak punkty interakcji powinny być wyświetlane.</pl></text>		
 
