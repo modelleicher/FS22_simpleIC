@@ -16,6 +16,7 @@ All the additional features like Attacher-Control are deactivated for the first 
 - multiplayer synchronization fix [issue #6]
 - saving of animationState fix
 - losing interior sounds fix [issue #7]
+- polish translation added (thanks KITT3000)
 
 ###### V 0.9.0.2
 - fixed issue when saving simpleIC_animations.lua (81) [issue #4]
