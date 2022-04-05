@@ -12,6 +12,11 @@ All the additional features like Attacher-Control are deactivated for the first 
  
 # Changelog:
 
+###### V 0.9.0.3
+- multiplayer synchronization fix [issue #6]
+- saving of animationState fix
+- losing interior sounds fix [issue #7]
+
 ###### V 0.9.0.2
 - fixed issue when saving simpleIC_animations.lua (81) [issue #4]
 

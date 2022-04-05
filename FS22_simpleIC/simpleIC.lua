@@ -25,26 +25,27 @@ function simpleIC.registerEventListeners(vehicleType)
 	SpecializationUtil.registerEventListener(vehicleType, "onDelete", simpleIC);				
 end;
 
-
-function simpleIC.onRegisterActionEvents(self, isActiveForInput)
-	local spec = self.spec_simpleIC;
-	spec.actionEvents = {}; 
-	self:clearActionEventsTable(spec.actionEvents); 	
-
-	-- add action events for SimpleIC, only add when active and IC exists in vehicle
-	if self:getIsActive() and self.spec_simpleIC.hasIC then
-
+function simpleIC.onRegisterActionEvents(self, isActiveForInput, isActiveForInputIgnoreSelection)
+	if self.isClient then
+		local spec = self.spec_simpleIC;
 		
-		self:addActionEvent(spec.actionEvents, InputAction.TOGGLE_ONOFF, self, simpleIC.TOGGLE_ONOFF, true, true, false, true, nil);
+		spec.actionEvents = {}; 
+		self:clearActionEventsTable(spec.actionEvents); 	
 
-		-- only add INTERACT_IC_VEHICLE if IC is turned on and inside currently
-		if spec.icTurnedOn_inside then
-			local _, actionEventId = self:addActionEvent(spec.actionEvents, InputAction.INTERACT_IC_VEHICLE, self, simpleIC.INTERACT, true, true, false, true, nil);
-			g_inputBinding:setActionEventTextVisibility(actionEventId, false);
-			spec.interactionButtonActive = true;
-		end;
+		-- add action events for SimpleIC, only add when active and IC exists in vehicle
+		if isActiveForInputIgnoreSelection and spec.hasIC then
 
-	end;	
+			self:addActionEvent(spec.actionEvents, InputAction.TOGGLE_ONOFF, self, simpleIC.TOGGLE_ONOFF, true, true, false, true, nil);
+
+			-- only add INTERACT_IC_VEHICLE if IC is turned on and inside currently
+			if spec.icTurnedOn_inside then
+				local _, actionEventId = self:addActionEvent(spec.actionEvents, InputAction.INTERACT_IC_VEHICLE, self, simpleIC.INTERACT, true, true, false, true, nil);
+				g_inputBinding:setActionEventTextVisibility(actionEventId, false);
+				spec.interactionButtonActive = true;
+			end;
+
+		end;	
+	end;
 end;
 
 function simpleIC.registerFunctions(vehicleType)
@@ -488,7 +489,6 @@ function simpleIC:checkInteraction()
 	if self.spec_simpleIC ~= nil and self.spec_simpleIC.hasIC then
 		local spec = self.spec_simpleIC;
 		
-		self:updateSoundAttributes(); 
 		
 		local insideActive = self:getICIsActiveInside();
 		local outsideActive = self:getICIsActiveOutside();
@@ -633,19 +633,3 @@ function simpleIC:renderTextAtProjectedPosition(projectX,projectY,projectZ, text
         setTextAlignment(RenderText.ALIGN_LEFT);
     end
 end
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
