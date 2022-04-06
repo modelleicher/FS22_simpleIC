@@ -1,5 +1,4 @@
 -- by modelleicher
--- www.ls-modcompany.com
 -- Part of SimpleIC global script. Global script that adds the ability to right-click on a implement attacher to add balls.
 
 simpleIC_implementBalls = {};
@@ -177,46 +176,56 @@ end
 
 
 
-setICImplementBallsEvent = {};
-setICImplementBallsEvent_mt = Class(setICImplementBallsEvent, Event);
-InitEventClass(setICImplementBallsEvent, "setICImplementBallsEvent");
+setICImplementBallsEvent = {}
+local setICImplementBallsEvent_mt = Class(setICImplementBallsEvent, Event)
 
-function setICImplementBallsEvent:emptyNew()  
-    local self = Event:new(setICImplementBallsEvent_mt );
-    self.className="setICImplementBallsEvent";
-    return self;
-end;
-function setICImplementBallsEvent:new(vehicle, state, ballIndex, animationIndex) 
-    self.vehicle = vehicle;
-    self.state = state;
-    self.ballIndex = Utils.getNoNil(ballIndex, 1);
-    return self;
-end;
-function setICImplementBallsEvent:readStream(streamId, connection)  
-    self.vehicle = NetworkUtil.readNodeObject(streamId); 
-	self.state = streamReadBool(streamId); 
+InitEventClass(setICImplementBallsEvent, "setICImplementBallsEvent")
+
+function setICImplementBallsEvent.emptyNew()
+	return Event.new(setICImplementBallsEvent_mt)
+end
+
+function setICImplementBallsEvent.new(object, state, ballIndex)
+	local self = setICImplementBallsEvent.emptyNew()
+	self.object = object
+	self.state = state
+	self.ballIndex = ballIndex
+
+	return self
+end
+
+function setICImplementBallsEvent:readStream(streamId, connection)
+	self.object = NetworkUtil.readNodeObject(streamId)
+	self.state = streamReadBool(streamId)
 	self.ballIndex = streamReadUIntN(streamId, 6);
-    self:run(connection);  
-end;
-function setICImplementBallsEvent:writeStream(streamId, connection)   
-	NetworkUtil.writeNodeObject(streamId, self.vehicle);   
-    streamWriteBool(streamId, self.state ); 
-    streamWriteUIntN(streamId, self.ballIndex, 6); 
-end;
-function setICImplementBallsEvent:run(connection) 
-    if self.vehicle ~= nil then
-        self.vehicle:setImplementBalls(self.ballIndex, self.state, true);
-    end;
-    if not connection:getIsServer() then  
-        g_server:broadcastEvent(setICImplementBallsEvent:new(self.vehicle, self.state, self.ballIndex), nil, connection, self.object);
-    end;
-end;
-function setICImplementBallsEvent.sendEvent(vehicle, state, ballIndex, noEventSend) 
-    if noEventSend == nil or noEventSend == false then
-        if g_server ~= nil then   
-            g_server:broadcastEvent(setICImplementBallsEvent:new(vehicle, state, ballIndex), nil, nil, vehicle);
-        else 
-            g_client:getServerConnection():sendEvent(setICImplementBallsEvent:new(vehicle, state, ballIndex));
-        end;
-    end;
-end;
+
+	self:run(connection)
+end
+
+function setICImplementBallsEvent:writeStream(streamId, connection)
+	NetworkUtil.writeNodeObject(streamId, self.object)
+	streamWriteBool(streamId, self.state)
+	streamWriteUIntN(streamId, self.ballIndex, 6)	
+end
+
+function setICImplementBallsEvent:run(connection)
+	if not connection:getIsServer() then
+		g_server:broadcastEvent(self, false, connection, self.object)
+	end
+
+	if self.object ~= nil and self.object:getIsSynchronized() then
+		self.object:setImplementBalls(self.ballIndex, self.state, true);
+	end
+end
+
+function setICImplementBallsEvent.sendEvent(object, state, ballIndex, noEventSend)
+	if noEventSend == nil or noEventSend == false then
+		if g_server ~= nil then
+			g_server:broadcastEvent(setICImplementBallsEvent.new(object, state, ballIndex), nil, nil, object)
+			
+		else
+			g_client:getServerConnection():sendEvent(setICImplementBallsEvent.new(object, state, ballIndex))
+		end
+	end
+end
+

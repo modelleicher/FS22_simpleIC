@@ -12,6 +12,8 @@ All the additional features like Attacher-Control are deactivated for the first 
  
 # Changelog:
 
+###### V 0.9.0.5
+- fixed Error on Servers - attempt to call method 'readStream' (a nil value) [issue #8]
 ###### V 0.9.0.4
 - multiplayer synchronization fix [issue #6]
 - saving of animationState fix

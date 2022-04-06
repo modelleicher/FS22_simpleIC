@@ -69,6 +69,7 @@ end;
 
 -- synch animation state during joining
 function simpleIC_animations:onReadStream(streamId, connection)
+	print("onReadStream")
 	local spec = self.spec_simpleIC
 	if spec ~= nil and spec.hasIC then
 		if connection:getIsServer() then
@@ -147,22 +148,20 @@ local setICAnimationEvent_mt = Class(setICAnimationEvent, Event)
 InitEventClass(setICAnimationEvent, "setICAnimationEvent")
 
 function setICAnimationEvent.emptyNew()
-	local self = Event.new(setICAnimationEvent_mt)
-    self.className = "setICAnimationEvent";
-	return self
+	return Event.new(setICAnimationEvent_mt)
 end
 
-function setICAnimationEvent.new(vehicle, wantedState, animationIndex)
+function setICAnimationEvent.new(object, wantedState, animationIndex)
 	local self = setICAnimationEvent.emptyNew()
-	self.vehicle = vehicle
+	self.object = object
 	self.wantedState = wantedState
 	self.animationIndex = animationIndex
-	
+
 	return self
 end
 
 function setICAnimationEvent:readStream(streamId, connection)
-	self.vehicle = NetworkUtil.readNodeObject(streamId)
+	self.object = NetworkUtil.readNodeObject(streamId)
 	self.wantedState = streamReadBool(streamId)
 	self.animationIndex = streamReadUIntN(streamId, 6);
 
@@ -170,30 +169,28 @@ function setICAnimationEvent:readStream(streamId, connection)
 end
 
 function setICAnimationEvent:writeStream(streamId, connection)
-	NetworkUtil.writeNodeObject(streamId, self.vehicle)
+	NetworkUtil.writeNodeObject(streamId, self.object)
 	streamWriteBool(streamId, self.wantedState)
 	streamWriteUIntN(streamId, self.animationIndex, 6)	
-	
 end
 
 function setICAnimationEvent:run(connection)
-	if self.vehicle ~= nil and self.vehicle:getIsSynchronized() then
-		self.vehicle:setICAnimation(self.wantedState, self.animationIndex, true);
+	if not connection:getIsServer() then
+		g_server:broadcastEvent(self, false, connection, self.object)
 	end
 
-	if not connection:getIsServer() then
-		g_server:broadcastEvent(setICAnimationEvent.new(self.vehicle, self.wantedState, self.animationIndex), nil, connection, self.vehicle)
+	if self.object ~= nil and self.object:getIsSynchronized() then
+		self.object:setICAnimation(self.wantedState, self.animationIndex, true);
 	end
 end
 
-function setICAnimationEvent.sendEvent(vehicle, wantedState, animationIndex, noEventSend)
-	if (noEventSend == nil or noEventSend == false) then
+function setICAnimationEvent.sendEvent(object, wantedState, animationIndex, noEventSend)
+	if noEventSend == nil or noEventSend == false then
 		if g_server ~= nil then
-			g_server:broadcastEvent(setICAnimationEvent.new(vehicle, wantedState, animationIndex), nil, nil, vehicle)
+			g_server:broadcastEvent(setICAnimationEvent.new(object, wantedState, animationIndex), nil, nil, object)
+			
 		else
-			g_client:getServerConnection():sendEvent(setICAnimationEvent.new(vehicle, wantedState, animationIndex))
+			g_client:getServerConnection():sendEvent(setICAnimationEvent.new(object, wantedState, animationIndex))
 		end
 	end
 end
-
-
