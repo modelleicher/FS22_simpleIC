@@ -12,6 +12,8 @@ All the additional features like Attacher-Control are deactivated for the first 
  
 # Changelog:
 
+###### V 0.9.0.6
+- Warning: Old shape file format version found 'weightSetBall.i3d.shapes'. fixed [issue #10]
 ###### V 0.9.0.5
 - fixed Error on Servers - attempt to call method 'readStream' (a nil value) [issue #8]
 ###### V 0.9.0.4
