@@ -69,7 +69,6 @@ end;
 
 -- synch animation state during joining
 function simpleIC_animations:onReadStream(streamId, connection)
-	print("onReadStream")
 	local spec = self.spec_simpleIC
 	if spec ~= nil and spec.hasIC then
 		if connection:getIsServer() then
