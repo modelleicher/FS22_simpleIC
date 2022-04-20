@@ -6,9 +6,14 @@ The hover-timer Method is mainly made for hands-free use with Headtracking.
 
 All the additional features like Attacher-Control are deactivated for the first FS22 version, only animations and the implement-balls are active for now. I will add the other features back in at a later date once the base works without issues.
 
+**The current stable release Version (play this if you don't want to test the newest changeds and features)**
+https://github.com/modelleicher/FS22_simpleIC/raw/43d51a57bf799151fdc2bf14433b9aa83421bf24/FS22_simpleIC.zip
+
 # Credits
 - mainly me, Modelleicher, working on this 
 - Big thanks to Wopster from whom I got permission to use the Ingame-Menu Code 
+
+
  
 # Changelog:
 
