@@ -6,6 +6,7 @@
         <de>SimpleIC - Einfaches Interactive Control</de>
 		<en>SimpleIC - Easy Interactive Control</en>
         <pl>SimpleIC - Łatwe interaktywne sterowanie</pl>
+		<cz>SimpleIC - Jednoduchá interaktivní kontrola</cz>
     </title>
     <description>
         <de>
@@ -17,6 +18,9 @@
      <pl>
 <![CDATA[Mod dodający dodatkową interakcę w pojazdach/maszynach i na zewnatrz ich.]]>
 	</pl>
+	<en>
+<![CDATA[Globální mod pro jednoduchou interaktivní kontrolu]]>
+	</en>	
     </description>
 
 	<iconFilename>store.dds</iconFilename>
@@ -40,35 +44,35 @@
     </inputBinding>	
 	
 	<l10n>		
-		<text name="input_TOGGLE_ONOFF"><de>IC: an/aus schalten</de><en>IC: on/off</en><pl>Włącz/Wyłacz IC</pl></text>	
-		<text name="input_INTERACT_IC_VEHICLE"><de>IC: Interagieren vehicle</de><en>IC: interact vehicle</en><pl>Interakcja w pojeździe</pl></text>	
-		<text name="input_INTERACT_IC_ONFOOT"><de>IC: Interagieren zu Fuß</de><en>IC: interact on foot</en><pl>Interakcja poza pojazdem</pl></text>	
+		<text name="input_TOGGLE_ONOFF"><de>IC: an/aus schalten</de><en>IC: on/off</en><pl>Włącz/Wyłacz IC</pl><cz>IC: zap./vyp.</cz></text>	
+		<text name="input_INTERACT_IC_VEHICLE"><de>IC: Interagieren vehicle</de><en>IC: interact vehicle</en><pl>Interakcja w pojeździe</pl><cz>IC: interagovat vozidlo</cz></text>	
+		<text name="input_INTERACT_IC_ONFOOT"><de>IC: Interagieren zu Fuß</de><en>IC: interact on foot</en><pl>Interakcja poza pojazdem</pl><cz>IC: interagovat při chůzi</cz></text>	
 
-        <text name="title_simpleIC"><de>Simple IC</de><en>Simple IC</en><pl>SimpleIC</pl></text>	
-		<text name="setting_simpleIC"><de>Triggerpunkte Modus</de><en>Triggerpoint Mode</en><pl>Tryb punktu interakcji</pl></text>	
-		<text name="toolTip_simpleIC"><de>Die Einstellung legt fest wie die Triggerpunkte eingeblendet werden.</de><en>How the Triggerpoints are supposed to be displayed.</en><pl>Jak punkty interakcji powinny być wyświetlane.</pl></text>		
+        <text name="title_simpleIC"><de>Simple IC</de><en>Simple IC</en><pl>SimpleIC</pl><cz>Simple IC</cz></text>	
+		<text name="setting_simpleIC"><de>Triggerpunkte Modus</de><en>Triggerpoint Mode</en><pl>Tryb punktu interakcji</pl><cz>Režim spouštěcího bodu</cz></text>	
+		<text name="toolTip_simpleIC"><de>Die Einstellung legt fest wie die Triggerpunkte eingeblendet werden.</de><en>How the Triggerpoints are supposed to be displayed.</en><pl>Jak punkty interakcji powinny być wyświetlane.</pl><cz>Jak se mají zobrazovat spouštěcí body.</cz></text>		
 
-		<text name="setting_simpleICTimerActivation"><de>Timer-Aktivierung</de><en>Timer Activation</en><pl>Aktywacja czasowa</pl></text>	
-		<text name="toolTip_simpleICTimerActivation"><de>In dieser Einstellung können IC-Funktionen durch drüber Hovern per Timer aktiviert werden anstatt per Tasten/Mausklick.</de><en>With this Setting IC-Functions can be activated via Timer while hovering on them instead of button/mouse pressing.</en><pl>Dzięki temu ustawieniu funkcje IC można aktywować za pomocą timera, najeżdżając na nie zamiast naciskania klawisza/przycisku myszy.</pl></text>				
+		<text name="setting_simpleICTimerActivation"><de>Timer-Aktivierung</de><en>Timer Activation</en><pl>Aktywacja czasowa</pl><cz>Aktivace časovače</cz></text>	
+		<text name="toolTip_simpleICTimerActivation"><de>In dieser Einstellung können IC-Funktionen durch drüber Hovern per Timer aktiviert werden anstatt per Tasten/Mausklick.</de><en>With this Setting IC-Functions can be activated via Timer while hovering on them instead of button/mouse pressing.</en><pl>Dzięki temu ustawieniu funkcje IC można aktywować za pomocą timera, najeżdżając na nie zamiast naciskania klawisza/przycisku myszy.</pl><cz>S tímto nastavením lze funkce IC aktivovat pomocí časovače, když na ně umístíte kurzor namísto stisknutí tlačítka/myši.</cz></text>				
 
-		<text name="setting_simpleICTimerActivationTime"><de>Timer-Aktivierung Timer-Zeit</de><en>Timer Activation Timer</en><pl>Czas aktywacji timera</pl></text>	
-		<text name="toolTip_simpleICTimerActivationTime"><de>Die Zeit wie lange über ein Triggerpunkt gehovert werden muss um die IC-Funktion zu aktivieren.</de><en>Time how long a Triggerpoint needs to be hovered over for activate IC-Function.</en><pl>Czas, jak długo należy najechać kursorem na punkt interackji, aby aktywować funkcję IC.</pl></text>				
+		<text name="setting_simpleICTimerActivationTime"><de>Timer-Aktivierung Timer-Zeit</de><en>Timer Activation Timer</en><pl>Czas aktywacji timera</pl><cz>Čas aktivace časovače</cz></text>	
+		<text name="toolTip_simpleICTimerActivationTime"><de>Die Zeit wie lange über ein Triggerpunkt gehovert werden muss um die IC-Funktion zu aktivieren.</de><en>Time how long a Triggerpoint needs to be hovered over for activate IC-Function.</en><pl>Czas, jak długo należy najechać kursorem na punkt interackji, aby aktywować funkcję IC.</pl><cz>Čas, jak dlouho musí být spouštěcí bod umístěn nad pro aktivaci funkce IC.</cz></text>				
 
-		<text name="selection_simpleIC_alwaysOn"><de>Immer An</de><en>Always On</en><pl>Zawsze włączone</pl></text>	
-        <text name="selection_simpleIC_button"><de>Taste</de><en>Button</en><pl>Przycisk</pl></text>
-        <text name="selection_simpleIC_hover"><de>Hover</de><en>Hover</en><pl>W powietrzu</pl></text>
-		<text name="selection_simpleIC_alwaysOff"><de>Immer aus</de><en>Always Off</en><pl>Zawsze wyłaczone</pl></text>
+		<text name="selection_simpleIC_alwaysOn"><de>Immer An</de><en>Always On</en><pl>Zawsze włączone</pl><cz>Vždy zapnuto</cz></text>	
+        <text name="selection_simpleIC_button"><de>Taste</de><en>Button</en><pl>Przycisk</pl><cz>Tlačítko</cz></text>
+        <text name="selection_simpleIC_hover"><de>Hover</de><en>Hover</en><pl>W powietrzu</pl><cz>Vznášet se</cz></text>
+		<text name="selection_simpleIC_alwaysOff"><de>Immer aus</de><en>Always Off</en><pl>Zawsze wyłaczone</pl><cz>Vždy vypnuto</cz></text>
 
-        <text name="selection_timerActivation_on"><de>Angeschaltet</de><en>Turned On</en><pl>Włączony</pl></text>
-		<text name="selection_timerActivation_off"><de>Ausgeschaltet</de><en>Turned Off</en><pl>Wyłączony</pl></text>
+        <text name="selection_timerActivation_on"><de>Angeschaltet</de><en>Turned On</en><pl>Włączony</pl><cz>Zapnuto</cz></text>
+		<text name="selection_timerActivation_off"><de>Ausgeschaltet</de><en>Turned Off</en><pl>Wyłączony</pl><cz>Vypnuto</cz></text>
 
-		<text name="selection_timerActivationTime_1"><de>500ms</de><en>500ms</en><pl>500ms</pl></text>
-		<text name="selection_timerActivationTime_2"><de>1000ms</de><en>1000ms</en><pl>1000ms</pl></text>
-		<text name="selection_timerActivationTime_3"><de>1500ms</de><en>1500ms</en><pl>1500ms</pl></text>
-		<text name="selection_timerActivationTime_4"><de>2000ms</de><en>2000ms</en><pl>2000ms</pl></text>
-		<text name="selection_timerActivationTime_5"><de>2500ms</de><en>2500ms</en><pl>2500ms</pl></text>
-		<text name="selection_timerActivationTime_6"><de>3000ms</de><en>3000ms</en><pl>3000ms</pl></text>
-		<text name="selection_timerActivationTime_7"><de>4000ms</de><en>4000ms</en><pl>4000ms</pl></text>
+		<text name="selection_timerActivationTime_1"><de>500ms</de><en>500ms</en><pl>500ms</pl><cz>500ms</cz></text>
+		<text name="selection_timerActivationTime_2"><de>1000ms</de><en>1000ms</en><pl>1000ms</pl><cz>1000ms</cz></text>
+		<text name="selection_timerActivationTime_3"><de>1500ms</de><en>1500ms</en><pl>1500ms</pl><cz>1500ms</cz></text>
+		<text name="selection_timerActivationTime_4"><de>2000ms</de><en>2000ms</en><pl>2000ms</pl><cz>2000ms</cz></text>
+		<text name="selection_timerActivationTime_5"><de>2500ms</de><en>2500ms</en><pl>2500ms</pl><cz>2500ms</cz></text>
+		<text name="selection_timerActivationTime_6"><de>3000ms</de><en>3000ms</en><pl>3000ms</pl><cz>3000ms</cz></text>
+		<text name="selection_timerActivationTime_7"><de>4000ms</de><en>4000ms</en><pl>4000ms</pl><cz>4000ms</cz></text>
 	</l10n>
 	<actions>
 		<action name="TOGGLE_ONOFF" />
