@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="no" ?>
-<modDesc descVersion="64">
+<modDesc descVersion="65">
     <author>modelleicher (Farming Agency)</author>
-    <version>0.9.0.7 FS22</version>
+    <version>0.9.0.9 FS22</version>
     <title>
         <de>SimpleIC - Einfaches Interactive Control</de>
 		<en>SimpleIC - Easy Interactive Control</en>

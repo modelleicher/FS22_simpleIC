@@ -26,14 +26,17 @@ function simpleIC.registerEventListeners(vehicleType)
 end;
 
 function simpleIC.onRegisterActionEvents(self, isActiveForInput, isActiveForInputIgnoreSelection)
+
 	if self.isClient then
 		local spec = self.spec_simpleIC;
 		
 		spec.actionEvents = {}; 
-		self:clearActionEventsTable(spec.actionEvents); 	
+		self:clearActionEventsTable(spec.actionEvents); 
+
 
 		-- add action events for SimpleIC, only add when active and IC exists in vehicle
 		if isActiveForInputIgnoreSelection and spec.hasIC then
+		
 
 			self:addActionEvent(spec.actionEvents, InputAction.TOGGLE_ONOFF, self, simpleIC.TOGGLE_ONOFF, true, true, false, true, nil);
 
@@ -178,8 +181,10 @@ end;
 
 
 function simpleIC:onEnterVehicle(isControlling, playerStyle, farmId)
+	
+
 	local spec = self.spec_simpleIC;
-	if self.spec_enterable ~= nil and spec.hasIC then
+	if self.spec_enterable ~= nil and spec.hasIC and isControlling then
 
 		-- check if we are currently in an inside camera
 		local inside = self:isCameraInsideCheck();
@@ -245,9 +250,9 @@ function simpleIC:doInteraction()
 						local lower = string.lower(simpleIC.functionsList[x])
 						if icFunction[lower] ~= nil then
 							local func = "setIC"..simpleIC.functionsList[x];
-							if state then
-								self[func](state, i)
-							else
+							if state ~= nil then
+								self[func](self, state, i)
+							else 
 								self[func](self, not icFunction[lower].currentState, i);
 							end;
 						end
@@ -309,6 +314,7 @@ end;
 
 function simpleIC:setICState(insideStateWanted, outsideStateWanted, turnOnOff)
 	local spec = self.spec_simpleIC;
+	
 
 	-- turnedOn state only changes if turnOnOff is true, meaning we force a state change via button or other means
 	if insideStateWanted ~= nil and turnOnOff then
@@ -439,8 +445,9 @@ function simpleIC:resetCanBeTriggered()
 	end;
 end;
 
-function simpleIC:onLeaveVehicle()
-	if self.spec_simpleIC ~= nil and self.spec_simpleIC.hasIC then
+function simpleIC:onLeaveVehicle(wasControlled)
+
+	if self.spec_simpleIC ~= nil and self.spec_simpleIC.hasIC and wasControlled then
 		self:resetCanBeTriggered();
 		self.spec_simpleIC.interactionButtonActive = false;
 		self:setICState(false, false);

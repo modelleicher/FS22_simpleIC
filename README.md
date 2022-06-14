@@ -16,7 +16,11 @@ https://github.com/modelleicher/FS22_simpleIC/raw/43d51a57bf799151fdc2bf14433b9a
 
  
 # Changelog:
-
+###### V 0.9.0.9
+- fixed bug trigger_on and trigger_off not working -- simpleIC_animations.lua:128: attempt to index local 'self' (a boolean value)
+- fixed mouse disappearing in Multiplayer Bug
+###### V 0.9.0.8
+- language CZ added by Kynuska  
 ###### V 0.9.0.7
 - Removed Debug Prints, first "Release" Version, still not done but no more larger bugs so.
 ###### V 0.9.0.6
