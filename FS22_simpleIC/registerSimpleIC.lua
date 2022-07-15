@@ -11,10 +11,14 @@ local modName = g_currentModName;
 local modDirectory = g_currentModDirectory;
 registerSimpleIC.modDirectory = modDirectory;
 
+local modSettingsDirectory = g_currentModSettingsDirectory
+registerSimpleIC.modSettingsDir = modSettingsDirectory
+
 -- GUI Stuff 
 -- mostly code from ManualAttach by Wopster, thanks for the work & permission to use it! :) 
 registerSimpleIC.icMode = 2
 registerSimpleIC.icModeBackup = 2
+
 
 registerSimpleIC.timerActivation = false;
 registerSimpleIC.timerActivationState = 2;
@@ -26,15 +30,13 @@ function registerSimpleIC.initSimpleICGui(self)
         local target = registerSimpleIC
 
 		-- SimpleIC Mode Settings
-        self.simpleIC = self.checkDirt:clone()
+        self.simpleIC = self.checkUseEasyArmControl:clone()
         self.simpleIC.target = target
         self.simpleIC.id = "simpleIC"
         self.simpleIC:setCallback("onClickCallback", "onsimpleICModeChanged")
 
         self.simpleIC.elements[4]:setText(g_i18n:getText("setting_simpleIC"))
         self.simpleIC.elements[6]:setText(g_i18n:getText("toolTip_simpleIC"))
-
-        self.simpleIC:setState(registerSimpleIC.icMode)
 
         local title = TextElement.new()
         title:applyProfile("settingsMenuSubtitle", true)
@@ -44,10 +46,10 @@ function registerSimpleIC.initSimpleICGui(self)
         self.boxLayout:addElement(self.simpleIC)
 
 		self.simpleIC:setTexts({g_i18n:getText("selection_simpleIC_alwaysOn"), g_i18n:getText("selection_simpleIC_button"), g_i18n:getText("selection_simpleIC_hover"), g_i18n:getText("selection_simpleIC_alwaysOff")})
-
+		self.simpleIC:setState(registerSimpleIC.icMode)
 
 		-- SimpleIC TimerActivation On/Off
-        self.simpleICTimerActivation = self.checkDirt:clone()
+        self.simpleICTimerActivation = self.checkUseEasyArmControl:clone()
         self.simpleICTimerActivation.target = target
         self.simpleICTimerActivation.id = "simpleICTimerActivation"
         self.simpleICTimerActivation:setCallback("onClickCallback", "onsimpleICTimerActivationChanged")
@@ -62,7 +64,7 @@ function registerSimpleIC.initSimpleICGui(self)
         self.boxLayout:addElement(self.simpleICTimerActivation)
 
 		-- SimpleIC TimerActivation On/Off
-        self.simpleICTimerActivationTime = self.checkDirt:clone()
+        self.simpleICTimerActivationTime = self.checkUseEasyArmControl:clone()
         self.simpleICTimerActivationTime.target = target
         self.simpleICTimerActivationTime.id = "simpleICTimerActivationTime"
         self.simpleICTimerActivationTime:setCallback("onClickCallback", "onsimpleICTimerActivationTimeChanged")
@@ -90,6 +92,7 @@ end
 
 function registerSimpleIC:onsimpleICModeChanged(state)
 	self.icMode = state
+	registerSimpleIC:saveSettings()
 end
 
 function registerSimpleIC:onsimpleICTimerActivationChanged(state)
@@ -100,9 +103,12 @@ function registerSimpleIC:onsimpleICTimerActivationChanged(state)
 	else
 		self.timerActivation = false;
 	end;
+	registerSimpleIC:saveSettings()
 end
 
 function registerSimpleIC:onsimpleICTimerActivationTimeChanged(state)
+	self.timerActivationTimeState = state;
+	
 	if state == 1 then
 		self.timerActivationTime = 500;
 	elseif state == 2 then
@@ -118,14 +124,61 @@ function registerSimpleIC:onsimpleICTimerActivationTimeChanged(state)
 	elseif state == 7 then
 		self.timerActivationTime = 4000;
 	end	
+	registerSimpleIC:saveSettings()
+end
+
+-- Save settings made in gui
+function registerSimpleIC.saveSettings(self)
+	print("saveSettings")
+	local filename = registerSimpleIC.modSettingsDir.."settings.xml"
+	local key = "settings"
+	local saved = false
 	
+	createFolder(registerSimpleIC.modSettingsDir)
+	local xmlFile = XMLFile.create("settingsXML", filename, key)
+
+	if xmlFile ~= nil then 		
+		xmlFile:setInt(key..".icMode", self.icMode)
+		xmlFile:setBool(key..".timerActivation", self.timerActivation)
+		xmlFile:setInt(key..".timerActivationState", self.timerActivationState)
+		xmlFile:setInt(key..".timerActivationTime", self.timerActivationTime)
+		xmlFile:setInt(key..".timerActivationTimeState", self.timerActivationTimeState)
+		
+		xmlFile:save()
+		xmlFile:delete()
+		saved = true
+		print("saveSettings finished")
+	end
+	return saved
+end
+
+-- Load settings made in gui
+function registerSimpleIC.loadSettings(self)
+	local loaded = false
+	local filename = registerSimpleIC.modSettingsDir.."settings.xml"
+	local key = "settings"
+	
+	createFolder(registerSimpleIC.modSettingsDir)
+	local xmlFile = XMLFile.loadIfExists("settingsXML", filename, key)
+	
+	if xmlFile ~= nil then
+		self.icMode = xmlFile:getInt(key..".icMode") or self.icMode
+		self.timerActivation = xmlFile:getBool(key..".timerActivation") or self.timerActivation
+		self.timerActivationState = xmlFile:getInt(key..".timerActivationState") or self.timerActivationState
+		self.timerActivationTime = xmlFile:getInt(key..".timerActivationTime") or self.timerActivationTime
+		self.timerActivationTimeState = xmlFile:getInt(key..".timerActivationTimeState") or self.timerActivationTimeState
+
+		xmlFile:delete()
+		loaded = true
+	end
+	return loaded
 end
 -- GUI End
 
 function init()
 	-- GUI Buttons stuff
-    InGameMenuGameSettingsFrame.onFrameOpen = Utils.appendedFunction(InGameMenuGameSettingsFrame.onFrameOpen, registerSimpleIC.initSimpleICGui)
-    InGameMenuGameSettingsFrame.updateGameSettings = Utils.appendedFunction(InGameMenuGameSettingsFrame.updateGameSettings, registerSimpleIC.updateSimpleICGui)	
+    InGameMenuGeneralSettingsFrame.onFrameOpen = Utils.appendedFunction(InGameMenuGeneralSettingsFrame.onFrameOpen, registerSimpleIC.initSimpleICGui)
+    InGameMenuGeneralSettingsFrame.updateGameSettings = Utils.appendedFunction(InGameMenuGeneralSettingsFrame.updateGameSettings, registerSimpleIC.updateSimpleICGui)	
 end
 
 -- add specializations to vehicleTypes 
@@ -166,6 +219,7 @@ function registerSimpleIC:register(name)
 	end
 end
 
+registerSimpleIC:loadSettings()
 TypeManager.finalizeTypes = Utils.prependedFunction(TypeManager.finalizeTypes, registerSimpleIC.register)
 
 init()
