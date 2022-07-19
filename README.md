@@ -16,6 +16,10 @@ https://github.com/modelleicher/FS22_simpleIC/raw/43d51a57bf799151fdc2bf14433b9a
 
  
 # Changelog:
+###### V 0.9.1.0
+- Settings are saved and can be changed without being admin by jason0611 #20
+- addition of disableWhenSimpleICIsActive in movingTools (see examples.xml)
+- fixed cz translation wrongly added as en #21
 ###### V 0.9.0.9
 - fixed bug trigger_on and trigger_off not working -- simpleIC_animations.lua:128: attempt to index local 'self' (a boolean value)
 - fixed mouse disappearing in Multiplayer Bug
