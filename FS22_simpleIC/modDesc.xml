@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="no" ?>
-<modDesc descVersion="65">
+<modDesc descVersion="67">
     <author>modelleicher (Farming Agency)</author>
-    <version>0.9.0.9 FS22</version>
+    <version>0.9.1.0 FS22</version>
     <title>
         <de>SimpleIC - Einfaches Interactive Control</de>
 		<en>SimpleIC - Easy Interactive Control</en>
@@ -18,9 +18,9 @@
      <pl>
 <![CDATA[Mod dodający dodatkową interakcę w pojazdach/maszynach i na zewnatrz ich.]]>
 	</pl>
-	<en>
+	<cz>
 <![CDATA[Globální mod pro jednoduchou interaktivní kontrolu]]>
-	</en>	
+	</cz>	
     </description>
 
 	<iconFilename>store.dds</iconFilename>
@@ -29,6 +29,7 @@
 	
     <extraSourceFiles>
         <sourceFile filename="registerSimpleIC.lua"/>
+        <sourceFile filename="simpleIC_deactivateMovingTools.lua"/>
     </extraSourceFiles>
 	
 	<inputBinding>
