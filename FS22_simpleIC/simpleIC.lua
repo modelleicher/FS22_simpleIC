@@ -212,7 +212,7 @@ end;
 
 function simpleIC:onDelete()
 	local spec = self.spec_simpleIC;
-	if spec.outsideInteractionTrigger ~= nil then
+	if spec ~= nil and spec.outsideInteractionTrigger ~= nil then
 		removeTrigger(spec.outsideInteractionTrigger)
 	end;
 end;
